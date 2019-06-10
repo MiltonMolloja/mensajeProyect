@@ -7,6 +7,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { Punto01Component } from './components/punto01/punto01.component';
 
+import {DataTableModule} from "angular-6-datatable";
+
+
 
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from "@angular/forms";
@@ -27,7 +30,8 @@ import * as $ from 'jquery';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    DataTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,8 @@ import { Empresa } from './../../models/empresa';
 import { MensajeService } from 'src/app/services/mensaje.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 
+
+
 @Component({
   selector: 'app-punto01',
   templateUrl: './punto01.component.html',
@@ -12,29 +14,35 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 })
 export class Punto01Component implements OnInit {
   mensaje: Mensaje;
-  tamMaxTexto: number = 20;
-  tamTexto: number;
+  empresa : Empresa;
+  tamMaxTexto: number = 20 ;
+  tamTexto: number ;
   mensajes: Array<Mensaje>;
   empresas: Array<Empresa>;
 
 
   constructor(private mensajeService: MensajeService) {
     this.mensaje = new Mensaje();
+    this.empresa = new Empresa();
     this.mensajes = new Array<Mensaje>();
     this.empresas = new Array<Empresa>();
     this.obtenerEmrpesas();
+    this.mostrarHistoricos();
+    //console.log(this.empresas);
   }
 
   ngOnInit() {
   }
 
-  public obtenerEmrpesas() {
+  public obtenerEmrpesas()
+  {
     this.mensajeService.getEmpresas().subscribe(
-      results => {
-        this.empresas = results['empresas'];
-        console.log(this.empresas);
-      }
-    );
+    results => {
+    console.log( results['empresas']);
+    this.empresas = JSON.parse(results['empresas']);
+    console.log( this.empresas);
+    }
+   );
   }
 
   public enviarMensaje() {
@@ -42,6 +50,21 @@ export class Punto01Component implements OnInit {
     this.mensajes.push(this.mensaje);
     this.mensaje = new Mensaje();
   }
+
+  public mostrarHistoricos(){
+    //llamamos al metodo del service
+    //para cargar los mensajes
+    this.mensajeService.getMensajes()
+    .subscribe(
+      result => {
+        this.mensajes = result;
+        console.log(this.mensajes);
+      },
+      error=>{
+        alert("error en la peticion");
+      });
+    }
+
 
 
 }

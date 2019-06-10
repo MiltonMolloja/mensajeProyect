@@ -1,18 +1,36 @@
-<div class="container">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>RazonSocial</th>
-        <th>UrlWebsite</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr *ngFor="let item of empresas">
-        <td>{{item.nombre}}</td>
-        <td>{{item.razonSocial}}</td>
-        <td>{{item.urlWebsite}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="row form-group">
+  <label>Empresa Destino:</label>
+  <select name="empresa" id="empresa" class="form-control" [(ngModel)]="mensaje.empresa">
+    <option *ngFor="let empresa of empresas" [ngValue]="empresa">{{empresa.nombre}}</option>
+  </select>
 </div>
+
+
+<table class="table table-striped" [mfData]="mensajes" #mf="mfDataTable" [mfRowsOnPage]="2">
+<thead>
+  <tr>
+    <th><mfDefaultSorter by="id">Id</mfDefaultSorter></th>
+    <th><mfDefaultSorter by="desde">Desde</mfDefaultSorter></th>
+    <th><mfDefaultSorter by="Para">Para</mfDefaultSorter></th>
+    <th><mfDefaultSorter by="texto">Texto</mfDefaultSorter></th>
+    <th><mfDefaultSorter by="fecha">Fecha</mfDefaultSorter></th>
+    <th><mfDefaultSorter by="empresa.nombre">Empresa</mfDefaultSorter></th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let item of mf.data">
+    <td>{{item.id}}</td>
+    <td>{{item.desde}}</td>
+    <td>{{item.para}}</td>
+    <td>{{item.texto}}</td>
+    <td>{{item.fecha.timestamp * 1000 | date: 'dd/MM/yyyy'}}</td>
+    <td>{{item.empresa.nombre | uppercase}}</td>
+  </tr>
+</tbody>
+<tfoot>
+  <tr>
+    <td colspan="4">
+      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+    </td>
+  </tr>
+</tfoot>

@@ -12,6 +12,6 @@ export class EmpresaService {
 
   getEmpresas():Observable<any>
   {
-     return this._http.get('localhost:8080/mensajeProyect/public/index.php/empresa/');
+     return this._http.get('http://localhost:8080/mensajeProyect/public/index.php/empresa/');
    }
 }
