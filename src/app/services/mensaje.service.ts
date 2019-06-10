@@ -30,4 +30,9 @@ export class MensajeService {
       httpOption);
   }
 
+  borrarMensaje(id: number){
+    //utilizo el metodo delete de http que es el configurado en el deleteAction de Symfony
+    return this._http.delete(('http://localhost:8080/mensajeProyect/public/index.php/mensaje/'+id));
+  }
+
 }

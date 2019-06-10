@@ -6,7 +6,7 @@
 </div>
 
 
-<table class="table table-striped" [mfData]="mensajes" #mf="mfDataTable" [mfRowsOnPage]="2">
+<table class="table table-striped" [mfData]="mensajes" #mf="mfDataTable" [mfRowsOnPage]="5">
 <thead>
   <tr>
     <th><mfDefaultSorter by="id">Id</mfDefaultSorter></th>
@@ -25,6 +25,9 @@
     <td>{{item.texto}}</td>
     <td>{{item.fecha.timestamp * 1000 | date: 'dd/MM/yyyy'}}</td>
     <td>{{item.empresa.nombre | uppercase}}</td>
+    <td>
+        <button type="button "class="btn btn-default" (click)="borrarMensaje(item.id)">Del</button>
+    </td>
   </tr>
 </tbody>
 <tfoot>

@@ -14,9 +14,9 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 })
 export class Punto01Component implements OnInit {
   mensaje: Mensaje;
-  empresa : Empresa;
-  tamMaxTexto: number = 20 ;
-  tamTexto: number ;
+  empresa: Empresa;
+  tamMaxTexto: number = 20;
+  tamTexto: number;
   mensajes: Array<Mensaje>;
   empresas: Array<Empresa>;
 
@@ -34,15 +34,14 @@ export class Punto01Component implements OnInit {
   ngOnInit() {
   }
 
-  public obtenerEmrpesas()
-  {
+  public obtenerEmrpesas() {
     this.mensajeService.getEmpresas().subscribe(
-    results => {
-    console.log( results['empresas']);
-    this.empresas = JSON.parse(results['empresas']);
-    console.log( this.empresas);
-    }
-   );
+      results => {
+        console.log(results['empresas']);
+        this.empresas = JSON.parse(results['empresas']);
+        console.log(this.empresas);
+      }
+    );
   }
 
   public enviarMensaje() {
@@ -51,20 +50,35 @@ export class Punto01Component implements OnInit {
     this.mensaje = new Mensaje();
   }
 
-  public mostrarHistoricos(){
+  public mostrarHistoricos() {
     //llamamos al metodo del service
     //para cargar los mensajes
     this.mensajeService.getMensajes()
-    .subscribe(
-      result => {
-        this.mensajes = result;
-        console.log(this.mensajes);
-      },
-      error=>{
-        alert("error en la peticion");
-      });
-    }
+      .subscribe(
+        result => {
+          this.mensajes = result;
+          console.log(this.mensajes);
+        },
+        error => {
+          alert("error en la peticion");
+        });
+  }
 
+  public borrarMensaje(id: number) {
+    this.mensajeService.borrarMensaje(id).subscribe(
+      result => {
+        console.log("borrado correctamente.")
+        //actualizo la tabla de mensajes
+        this.mostrarHistoricos();
+        return true;
+      },
+      error => {
+        console.error("Error deleting!");
+        console.log(error);
+        return false;
+      }
+    )
+  }
 
 
 }
